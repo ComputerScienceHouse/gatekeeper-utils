@@ -1,6 +1,5 @@
 [workspace]
 
 members = [
-    "gatekeeper",
     "enroll"
 ]

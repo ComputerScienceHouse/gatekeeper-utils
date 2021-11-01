@@ -233,6 +233,16 @@ fn main() {
                                 );
                                 realms.push(&mut member_projects);
 
+                                match tag.format() {
+                                    Ok(_) => {
+                                        println!("Formatted tag");
+                                    },
+                                    Err(err) => {
+                                        println!("Failed formatting tag: {:?}", err);
+                                        continue;
+                                    }
+                                }
+
                                 match tag.issue(&provisions.system_secret.clone(), realms) {
                                     Ok(_) => {
                                         let res_result = client.patch(
