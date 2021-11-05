@@ -1,3 +1,0 @@
-[submodule "libgatekeeper"]
-	path = libgatekeeper
-	url = ../libgatekeeper.git
