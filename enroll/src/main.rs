@@ -101,6 +101,7 @@ fn resolve_id(client: &reqwest::blocking::Client, prefix: String,
 }
 
 fn main() {
+    dotenv::dotenv().ok();
     let matches = App::new("Gatekeeper Door")
         .version("0.1.0")
         .author("Steven Mirabito <steven@stevenmirabito.com>")
