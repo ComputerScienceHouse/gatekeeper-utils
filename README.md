@@ -1,36 +1,23 @@
-# Gatekeeper Door Client
+# Gatekeeper Utilities
 
-Door lock client for the Gatekeeper access control system.
+Gatekeeper powers access to the doors to [Computer Science House](https://csh.rit.edu/)'s special rooms.
 
-Gatekeeper powers access to the doors to [Computer Science House](https://csh.rit.edu/)'s special rooms
+This repository contains tools for enrolling and manipulating tags.
 
 # Building
 
 To download and build this project on a development machine, run the following:
 
 ```
-git clone https://github.com/stevenmirabito/gatekeeper-door.git
-cd gatekeeper-door
-cargo build
+git clone https://github.com/ComputerScienceHouse/gatekeeper-utils.git
+cd gatekeeper-utils
+cargo build --bin enroll
 ```
 
-To build this project for the target hardware, you'll need to cross-compile it
-using the [`cross`] tool. To use it, first install it using
+# Enrollment
 
-[`cross`]: https://github.com/rust-embedded/cross
-
-```
-cargo install cross
-```
-
-Then, you can use `cross` as an almost-drop-in-replacement for cargo to
-build the project.
+To enroll new keys:
 
 ```
-cross build --target=armv7-unknown-linux-gnueabihf
+cargo run --bin enroll
 ```
-
-Cross uses Docker under the hood to put together a container environment with
-the correct cross-compilers needed. For this project, we also specify
-how to install third-party dependencies in this cross-compiled environment by
-placing those installation steps in the `Dockerfile` which `cross` uses.
