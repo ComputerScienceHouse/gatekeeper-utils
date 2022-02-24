@@ -48,8 +48,9 @@ struct KeyCreated {
 #[derive(Debug, Serialize, Deserialize)]
 #[allow(non_snake_case)]
 struct UserLookup {
-    ipaUniqueID: String,
-    groups: Vec<String>
+    id: String,
+    groups: Vec<String>,
+    disabled: bool,
 }
 
 #[derive(Clone)]
@@ -202,26 +203,9 @@ fn create_tag(client: &reqwest::blocking::Client, username: &mut String, provisi
         &client, provisions.prefix.clone(),
         provisions.token.clone(), username.clone()
     )?;
-    let uuid = resolution.ipaUniqueID;
-    let groups = resolution.groups;
+    let uuid = resolution.id;
 
     println!("Ok, enrolling {}", username);
-    let res = client.put(provisions.prefix.clone() + "/users")
-        .json(&json!({
-            "id": uuid,
-            "groups": groups
-        }))
-        .header(AUTHORIZATION, provisions.token.clone()).send()?;
-
-    match res.status() {
-        // User already exists or we created:
-        StatusCode::CONFLICT |
-        StatusCode::NO_CONTENT => {},
-        status => {
-            println!("Failed to associate key with user! {:?}", status);
-            return Err(Box::new(GatekeeperError::Unknown));
-        }
-    }
 
     // Now we can ask for the key!
     println!("Ready to register for {}! Please scan a tag to enroll it", username);
